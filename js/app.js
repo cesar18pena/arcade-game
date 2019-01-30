@@ -36,7 +36,7 @@ Enemy.prototype.render = function () {
 var Player = function (positionX, positionY) {
     this.positionX = positionX;
     this.positionY = positionY;
-    this.sprite = 'images/char-boy';
+    this.sprite = 'images/char-boy.png';
 }
 
 Player.prototype.update = function (dt) {
@@ -44,20 +44,43 @@ Player.prototype.update = function (dt) {
 };
 
 Player.prototype.render = function () {
-    ctx.drawImage(Resources.get(this.image), this.positionX, this.positionY);
+    ctx.drawImage(Resources.get(this.sprite), this.positionX, this.positionY);
+}
+
+Player.prototype.handleInput = function (keyCode) {
+    switch (keyCode) {
+        case "up":
+            if (this.positionY > -10)
+                this.positionY -= 80;
+            break;
+        case "down":
+            if (this.positionY < 350)
+                this.positionY += 80;
+            break;
+        case "right":
+            if (this.positionX < 400)
+                this.positionX += 100;
+            break;
+        case "left":
+            if (this.positionX > 0)
+                this.positionX -= 100;
+            break;
+        default:
+            console.log('Pressed incorrect option');
+    }
 }
 
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
 
-const enemy1 = new Enemy();
-const enemy2 = new Enemy();
-const enemy3 = new Enemy();
+const enemy1 = new Enemy(0, 50);
+const enemy2 = new Enemy(0, 100);
+const enemy3 = new Enemy(0, 150);
 
 const allEnemies = [enemy1, enemy2, enemy3];
 
-const player = new Player(200, 200);
+const player = new Player(200, 380);
 
 
 // This listens for key presses and sends the keys to your
