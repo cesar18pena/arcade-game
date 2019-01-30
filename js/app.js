@@ -20,13 +20,13 @@ Enemy.prototype.update = function (dt) {
     // which will ensure the game runs at the same speed for
     // all computers.
 
-    this.positionX += this.speed * dt
+    this.positionX = this.positionX >= 500 ? this.positionX = -50 : this.positionX += this.speed * dt * 50;
 
 };
 
 // Draw the enemy on the screen, required method for game
 Enemy.prototype.render = function () {
-    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+    ctx.drawImage(Resources.get(this.sprite), this.positionX, this.positionY);
 };
 
 // Now write your own player class
@@ -74,9 +74,9 @@ Player.prototype.handleInput = function (keyCode) {
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
 
-const enemy1 = new Enemy(0, 50);
-const enemy2 = new Enemy(0, 100);
-const enemy3 = new Enemy(0, 150);
+const enemy1 = new Enemy(0, 75, 6);
+const enemy2 = new Enemy(0, 150, 4);
+const enemy3 = new Enemy(0, 225, 2);
 
 const allEnemies = [enemy1, enemy2, enemy3];
 
