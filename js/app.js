@@ -74,9 +74,9 @@ Player.prototype.handleInput = function (keyCode) {
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
 
-const enemy1 = new Enemy(0, 75, 6);
-const enemy2 = new Enemy(0, 150, 4);
-const enemy3 = new Enemy(0, 225, 2);
+const enemy1 = new Enemy(0, 60, 6);
+const enemy2 = new Enemy(0, 140, 4);
+const enemy3 = new Enemy(0, 220, 2);
 
 const allEnemies = [enemy1, enemy2, enemy3];
 
