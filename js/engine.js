@@ -100,11 +100,32 @@ var Engine = (function (global) {
         allEnemies.forEach((enemy) => {
             let decision = comparePositions(enemy, player);
             if (decision) {
+                reduceLiveOfPlayer();
                 player.positionX = 200;
                 player.positionY = 380;
+
             };
         });
     }
+
+    function gameOver() {
+        console.log("you lose");
+    }
+
+    let lives = 3;
+    let livesSpan = document.getElementById('lives');
+    livesSpan.innerHTML = lives;
+
+    function reduceLiveOfPlayer() {
+        if (lives === 0) {
+            gameOver();
+        }
+        else {
+            lives = lives - 1;
+            livesSpan.innerHTML = lives;
+        }
+    }
+
 
     /* This is called by the update function and loops through all of the
      * objects within your allEnemies array as defined in app.js and calls
