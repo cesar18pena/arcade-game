@@ -1,5 +1,5 @@
 // Enemies our player must avoid
-var Enemy = function (positionX, positionY, speed) {
+var Enemy = function (positionX, positionY) {
     // Variables applied to each of our instances go here,
     // we've provided one for you to get started
 
@@ -8,8 +8,7 @@ var Enemy = function (positionX, positionY, speed) {
 
     this.positionX = positionX;
     this.positionY = positionY;
-    this.speed = speed;
-
+    this.speed = Math.floor(Math.random() * 8) + 1;
     this.sprite = 'images/enemy-bug.png';
 };
 
@@ -37,6 +36,7 @@ var Player = function (positionX, positionY) {
     this.positionX = positionX;
     this.positionY = positionY;
     this.sprite = 'images/char-boy.png';
+    this.lives = 3;
 }
 
 Player.prototype.restart = function () {
@@ -44,7 +44,29 @@ Player.prototype.restart = function () {
     this.positionY = 380;
 };
 
+Player.prototype.reduceLive = function () {
+    this.lives--;
+    let livesSpan = document.getElementById('lives');
+    livesSpan.innerHTML = player.lives;
+
+    if (player.lives === 0) {
+        livesSpan.innerHTML = player.lives;
+        gameOver();
+    }
+    else {
+        livesSpan.innerHTML = player.lives;
+    }
+};
+
 Player.prototype.update = function (dt) {
+
+};
+
+Player.prototype.resetGame = function () {
+    this.restart();
+    this.lives = 3;
+    document.getElementById('scores').innerHTML = 0;
+    document.getElementById('lives').innerHTML = 3;
 
 };
 
@@ -78,7 +100,16 @@ Player.prototype.handleInput = function (keyCode) {
                 this.positionX -= 100;
             break;
         default:
-            console.log('Pressed incorrect option');
+            console.log('Pressed another key');
+    }
+}
+
+function gameOver() {
+    const answer = confirm('You did great, want to play again');
+    if (answer) {
+        player.resetGame();
+    } else {
+        player.resetGame();
     }
 }
 
@@ -86,9 +117,9 @@ Player.prototype.handleInput = function (keyCode) {
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
 
-const enemy1 = new Enemy(0, 60, 6);
-const enemy2 = new Enemy(0, 140, 4);
-const enemy3 = new Enemy(0, 220, 2);
+const enemy1 = new Enemy(0, 60);
+const enemy2 = new Enemy(0, 140);
+const enemy3 = new Enemy(0, 220);
 
 const allEnemies = [enemy1, enemy2, enemy3];
 

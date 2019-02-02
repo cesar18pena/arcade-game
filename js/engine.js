@@ -82,7 +82,15 @@ var Engine = (function (global) {
         checkCollisions();
     }
 
+    /**
+     * This function compare the position of the enemy and the player to determine if they clash
+     * @param {Object} enemy 
+     * @param {Object} player 
+     * @returns {Boolean} true if they clash and false if didn't clash.
+     */
+
     function comparePositions(enemy, player) {
+
         const booleanX = (Math.round(enemy.positionX) === Math.round(player.positionX));
         const booleanY = (Math.round(enemy.positionY) === Math.round(player.positionY));
 
@@ -93,39 +101,42 @@ var Engine = (function (global) {
         }
     }
 
+    /**
+     * This function is called with the array of enemies and foreach enemy compare positions with player
+     * if @returns {true} reduce the live of player by one and put i
+     */
+
     function checkCollisions() {
         allEnemies.forEach((enemy) => {
             let decision = comparePositions(enemy, player);
             if (decision) {
-                reduceLiveOfPlayer();
-                player.positionX = 200;
-                player.positionY = 380;
+                player.reduceLive();
+                player.restart();
 
             };
         });
     }
 
     function gameOver() {
-        const answer = confirm('You lose, want to play again');
+        const answer = confirm('You did great, want to play again');
         if (answer) {
-            console.log("start play");
+            player.resetGame();
         } else {
-            console.log("end play");
+            player.resetGame();
         }
     }
 
-    let lives = 3;
     let livesSpan = document.getElementById('lives');
-    livesSpan.innerHTML = lives;
+    livesSpan.innerHTML = player.lives;
 
     function reduceLiveOfPlayer() {
-        lives--;
-        if (lives === 0) {
-            livesSpan.innerHTML = lives;
+        player.lives--;
+        if (player.lives === 0) {
+            livesSpan.innerHTML = player.lives;
             gameOver();
         }
         else {
-            livesSpan.innerHTML = lives;
+            livesSpan.innerHTML = player.lives;
         }
     }
 
@@ -138,9 +149,7 @@ var Engine = (function (global) {
      * render methods.
      */
     function updateEntities(dt) {
-        allEnemies.forEach(function (enemy) {
-            enemy.update(dt);
-        });
+        allEnemies.forEach(enemy => enemy.update(dt));
         player.update();
     }
 
