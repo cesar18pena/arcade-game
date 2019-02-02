@@ -8,7 +8,7 @@ var Enemy = function (positionX, positionY) {
 
     this.positionX = positionX;
     this.positionY = positionY;
-    this.speed = Math.floor(Math.random() * 8) + 1;
+    this.speed = Math.floor(Math.random() * 6) + 1;
     this.sprite = 'images/enemy-bug.png';
 };
 

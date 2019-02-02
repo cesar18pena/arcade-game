@@ -117,30 +117,6 @@ var Engine = (function (global) {
         });
     }
 
-    function gameOver() {
-        const answer = confirm('You did great, want to play again');
-        if (answer) {
-            player.resetGame();
-        } else {
-            player.resetGame();
-        }
-    }
-
-    let livesSpan = document.getElementById('lives');
-    livesSpan.innerHTML = player.lives;
-
-    function reduceLiveOfPlayer() {
-        player.lives--;
-        if (player.lives === 0) {
-            livesSpan.innerHTML = player.lives;
-            gameOver();
-        }
-        else {
-            livesSpan.innerHTML = player.lives;
-        }
-    }
-
-
     /* This is called by the update function and loops through all of the
      * objects within your allEnemies array as defined in app.js and calls
      * their update() methods. It will then call the update function for your
