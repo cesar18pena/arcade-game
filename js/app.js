@@ -39,6 +39,11 @@ var Player = function (positionX, positionY) {
     this.sprite = 'images/char-boy.png';
 }
 
+Player.prototype.restart = function () {
+    this.positionX = 200;
+    this.positionY = 380;
+};
+
 Player.prototype.update = function (dt) {
 
 };
@@ -50,8 +55,15 @@ Player.prototype.render = function () {
 Player.prototype.handleInput = function (keyCode) {
     switch (keyCode) {
         case "up":
-            if (this.positionY > -10)
+            if (this.positionY > -10) {
                 this.positionY -= 80;
+                if (this.positionY < 50) {
+                    const value = document.getElementById("scores").innerHTML;
+                    const result = parseInt(value, 10) + 50;
+                    document.getElementById("scores").innerHTML = result;
+                    player.restart();
+                }
+            }
             break;
         case "down":
             if (this.positionY < 350)
@@ -69,7 +81,6 @@ Player.prototype.handleInput = function (keyCode) {
             console.log('Pressed incorrect option');
     }
 }
-
 
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies

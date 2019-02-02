@@ -86,9 +86,6 @@ var Engine = (function (global) {
         const booleanX = (Math.round(enemy.positionX) === Math.round(player.positionX));
         const booleanY = (Math.round(enemy.positionY) === Math.round(player.positionY));
 
-        console.log(player.positionY, enemy.positionY);
-        console.log(booleanX + " And " + booleanY);
-
         if (booleanX && booleanY) {
             return true;
         } else {
@@ -109,7 +106,12 @@ var Engine = (function (global) {
     }
 
     function gameOver() {
-        console.log("you lose");
+        const answer = confirm('You lose, want to play again');
+        if (answer) {
+            console.log("start play");
+        } else {
+            console.log("end play");
+        }
     }
 
     let lives = 3;
@@ -117,11 +119,12 @@ var Engine = (function (global) {
     livesSpan.innerHTML = lives;
 
     function reduceLiveOfPlayer() {
+        lives--;
         if (lives === 0) {
+            livesSpan.innerHTML = lives;
             gameOver();
         }
         else {
-            lives = lives - 1;
             livesSpan.innerHTML = lives;
         }
     }
