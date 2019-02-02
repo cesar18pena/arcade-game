@@ -1,20 +1,17 @@
-# Classic Arcade Game Clone Project
+# Classic Arcade Game (Udacity Project)
+This is the third project from Udacity Front-end Development Nanodegree.
+![](images/game-view.png)
 
-## Table of Contents
+## What is a Arcade Game
+It is a simple game to move to the other side of the map without getting hit by enemies. There's isn't a time limit and the objetive is to get the most point possible before losing all lives.
 
-- [Instructions](#instructions)
-- [Contributing](#contributing)
+## Game explanation
+The objetive is to cross to the other side without getting hit and get has many points possible.
+
+## How to Play
+- Clone the repository using this command: `git clone https://github.com/cesar18pena/arcade-game.git`
+- Open the index.html and start playing.
 
 ## Instructions
-
-Use this [rubric](https://review.udacity.com/#!/rubrics/15/view) for self-checking your submission.
-
-Make sure the functions you write are **object-oriented** - either class functions (like `Player` and `Enemy`) or class prototype functions such as `Enemy.prototype.checkCollisions`. Also make sure that the keyword `this` is used appropriately within your class and class prototype functions to refer to the object the function is called upon.
-
-Your **README.md** file should be updated with instructions on both how to 1. Run and 2. Play your arcade game.
-
-For detailed instructions on how to get started, check out this [guide](https://docs.google.com/document/d/1v01aScPjSWCCWQLIpFqvg3-vXLH2e8_SZQKC8jNO0Dc/pub?embedded=true).
-
-## Contributing
-
-This repository is the starter code for _all_ Udacity students. Therefore, we most likely will not accept pull requests.
+- Move the player using the keyboard arrows up, down, right, left
+- Make sure your player doesn't collide with the enemies. You loose a life with any collison.
