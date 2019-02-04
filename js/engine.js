@@ -1,3 +1,5 @@
+"use strict"
+
 /* Engine.js
  * This file provides the game loop functionality (update entities and render),
  * draws the initial game board on the screen, and then calls the update and
@@ -91,8 +93,8 @@ var Engine = (function (global) {
 
     function comparePositions(enemy, player) {
 
-        const booleanX = (Math.round(enemy.positionX) === Math.round(player.positionX));
-        const booleanY = (Math.round(enemy.positionY) === Math.round(player.positionY));
+        const booleanX = (Math.round(enemy.posX) === Math.round(player.posX));
+        const booleanY = (Math.round(enemy.posY) === Math.round(player.posY));
 
         if (booleanX && booleanY) {
             return true;
@@ -103,7 +105,7 @@ var Engine = (function (global) {
 
     /**
      * This function is called with the array of enemies and foreach enemy compare positions with player
-     * if @returns {true} reduce the live of player by one and put i
+     * if @returns {true} reduce the live of player by one and put the player to initial Position
      */
 
     function checkCollisions() {

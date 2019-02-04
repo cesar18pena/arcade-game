@@ -1,13 +1,21 @@
-// Enemies our player must avoid
-var Enemy = function (positionX, positionY) {
+"use strict"
+/**
+ * Class Enemy
+ * Enemies our player must avoid
+ * @param {Number} posX initial positionX of enemy
+ * @param {Number} posY initial positionY of enemy
+ * @param {String} sprite image use to display an enemy
+ * @returns New instance of Enemy Class
+ */
+var Enemy = function (posX, posY, sprite) {
     // Variables applied to each of our instances go here,
     // we've provided one for you to get started
 
     // The image/sprite for our enemies, this uses
     // a helper we've provided to easily load images
 
-    this.positionX = positionX;
-    this.positionY = positionY;
+    this.posX = posX;
+    this.posY = posY;
     this.speed = Math.floor(Math.random() * 6) + 1;
     this.sprite = 'images/enemy-bug.png';
 };
@@ -15,46 +23,45 @@ var Enemy = function (positionX, positionY) {
 // Update the enemy's position, required method for game
 // Parameter: dt, a time delta between ticks
 Enemy.prototype.update = function (dt) {
-    // You should multiply any movement by the dt parameter
-    // which will ensure the game runs at the same speed for
-    // all computers.
-
-    this.positionX = this.positionX >= 500 ? this.positionX = -50 : this.positionX += this.speed * dt * 50;
-
+    /**  
+    * You should multiply any movement by the dt parameter
+    * which will ensure the game runs at the same speed for
+    * all computers.
+    */
+    this.posX = this.posX >= 500 ? this.posX = -50 : this.posX += this.speed * dt * 50;
 };
 
 // Draw the enemy on the screen, required method for game
 Enemy.prototype.render = function () {
-    ctx.drawImage(Resources.get(this.sprite), this.positionX, this.positionY);
+    ctx.drawImage(Resources.get(this.sprite), this.posX, this.posY);
 };
 
-// Now write your own player class
-// This class requires an update(), render() and
-// a handleInput() method.
-
-var Player = function (positionX, positionY) {
-    this.positionX = positionX;
-    this.positionY = positionY;
-    this.sprite = 'images/char-boy.png';
+// Player class
+var Player = function (posX, posY, sprite) {
+    this.posX = posX;
+    this.posY = posY;
+    this.sprite = sprite;
     this.lives = 3;
 }
 
+// Method Restart reset the position of the player to the initial point of the game.
 Player.prototype.restart = function () {
-    this.positionX = 200;
-    this.positionY = 380;
+    this.posX = 200;
+    this.posY = 380;
 };
 
+// Method reduceLive decrease live by 1 of the player every time collision with an enemy.
 Player.prototype.reduceLive = function () {
     this.lives--;
-    let livesSpan = document.getElementById('lives');
-    livesSpan.innerHTML = player.lives;
+    const livesSpan = document.getElementById('lives');
+    livesSpan.innerHTML = this.lives;
 
-    if (player.lives === 0) {
-        livesSpan.innerHTML = player.lives;
+    if (this.lives === 0) {
+        livesSpan.innerHTML = this.lives;
         gameOver();
     }
     else {
-        livesSpan.innerHTML = player.lives;
+        livesSpan.innerHTML = this.lives;
     }
 };
 
@@ -62,6 +69,10 @@ Player.prototype.update = function (dt) {
 
 };
 
+/**
+ * This method reset the game and score when the player loses all lives.
+ * Restart score to 0 and lives to 3
+ */
 Player.prototype.resetGame = function () {
     this.restart();
     this.lives = 3;
@@ -70,60 +81,59 @@ Player.prototype.resetGame = function () {
 
 };
 
+// Draw the player on the screen, required method for game
 Player.prototype.render = function () {
-    ctx.drawImage(Resources.get(this.sprite), this.positionX, this.positionY);
+    ctx.drawImage(Resources.get(this.sprite), this.posX, this.posY);
 }
 
+/**
+ * Method handleInput check everytime the arrows up, down, right, left
+ * are pressed and move the player according the key pressed.
+ */
 Player.prototype.handleInput = function (keyCode) {
     switch (keyCode) {
         case "up":
-            if (this.positionY > -10) {
-                this.positionY -= 80;
-                if (this.positionY < 50) {
+            if (this.posY > -10) {
+                this.posY -= 80;
+                if (this.posY < 50) {
                     const value = document.getElementById("scores").innerHTML;
                     const result = parseInt(value, 10) + 50;
                     document.getElementById("scores").innerHTML = result;
-                    player.restart();
+                    this.restart();
                 }
             }
             break;
         case "down":
-            if (this.positionY < 350)
-                this.positionY += 80;
+            if (this.posY < 350)
+                this.posY += 80;
             break;
         case "right":
-            if (this.positionX < 400)
-                this.positionX += 100;
+            if (this.posX < 400)
+                this.posX += 100;
             break;
         case "left":
-            if (this.positionX > 0)
-                this.positionX -= 100;
+            if (this.posX > 0)
+                this.posX -= 100;
             break;
-        default:
-            console.log('Pressed another key');
     }
 }
 
+// This function display a message to the player and reset the game to start over.
 function gameOver() {
-    const answer = confirm('You did great, want to play again');
-    if (answer) {
-        player.resetGame();
-    } else {
-        player.resetGame();
-    }
+    alert('You did great, want to play again');
+    player.resetGame();
 }
 
 // Now instantiate your objects.
+const enemy1 = new Enemy(0, 60, 'images/enemy-bug.png');
+const enemy2 = new Enemy(0, 140, 'images/enemy-bug.png');
+const enemy3 = new Enemy(0, 220, 'images/enemy-bug.png');
+
 // Place all enemy objects in an array called allEnemies
-// Place the player object in a variable called player
-
-const enemy1 = new Enemy(0, 60);
-const enemy2 = new Enemy(0, 140);
-const enemy3 = new Enemy(0, 220);
-
 const allEnemies = [enemy1, enemy2, enemy3];
 
-const player = new Player(200, 380);
+// Place the player object in a variable called player
+const player = new Player(200, 380, 'images/char-boy.png');
 
 
 // This listens for key presses and sends the keys to your
