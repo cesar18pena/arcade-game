@@ -81,7 +81,7 @@ var Engine = (function (global) {
      */
     function update(dt) {
         updateEntities(dt);
-        checkCollisions();
+        // checkCollisions();
     }
 
     /**
@@ -96,7 +96,7 @@ var Engine = (function (global) {
         const booleanX = (Math.round(enemy.posX) === Math.round(player.posX));
         const booleanY = (Math.round(enemy.posY) === Math.round(player.posY));
 
-        if (booleanX && booleanY) {
+        if (player.posX < enemy.posX + 40 && player.posX > enemy.posX.x && booleanY) {
             return true;
         } else {
             return false;

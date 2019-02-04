@@ -29,6 +29,14 @@ Enemy.prototype.update = function (dt) {
     * all computers.
     */
     this.posX = this.posX >= 500 ? this.posX = -50 : this.posX += this.speed * dt * 50;
+
+    const booleanX = (parseInt(this.posX) + 100 >= player.posX) ? true : false;
+    const booleanY = (parseInt(this.posX) <= player.posX + 30 && this.posY === player.posY) ? true : false;
+
+    if (booleanX && booleanY) {
+        player.reduceLive();
+        player.restart();
+    }
 };
 
 // Draw the enemy on the screen, required method for game
